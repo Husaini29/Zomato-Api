@@ -22,7 +22,7 @@ app.get('/',(req,res) => {
 
 // Api of Cities
 app.get('/location', (req,res)=>{
-    db.collection('location').find().toArray((err,result)=>{
+    db.collection('locations').find().toArray((err,result)=>{
         if(err) throw err;
         res.send(result);
     })
@@ -46,7 +46,7 @@ app.get('/restaurants', (req,res)=>{
     }
     console.log("StateId>>>>>", stateId);
     console.log("mealId>>>>>", mealId);
-    db.collection('restaurants').find(query).toArray((err,result)=>{
+    db.collection('resturants').find(query).toArray((err,result)=>{
         if(err) throw err;
         res.send(result);
     })
@@ -91,7 +91,7 @@ app.get('/filter/:mealId',(req,res)=>{
         query= {$and:[{cost:{$gt:lcost,$lt:hcost}}],"mealTypes.mealtype_id":mealId};
     }
     
-    db.collection('restaurants').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result)=>{
+    db.collection('resturants').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result)=>{
         if(err) throw err;
         res.send(result);
     })
@@ -100,7 +100,7 @@ app.get('/filter/:mealId',(req,res)=>{
 // Restaurant details Api
 app.get('/details/:id',(req,res)=>{
     let restId = Number(req.params.id);
-    db.collection('restaurants').find({restaurant_id:restId}).toArray((err,result)=>{
+    db.collection('resturants').find({restaurant_id:restId}).toArray((err,result)=>{
         if(err) throw err;
         res.send(result);
     })
